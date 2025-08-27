@@ -1,0 +1,50 @@
+﻿@inject Services.ConfigPageTimer Timer
+@inject NavigationManager NavManager
+
+@* @inject IJSRuntime JSRuntime *@
+@using System.Diagnostics
+
+@page "/"
+
+
+<div class="d-grid gap-2">
+    <NavLink class="btn btn-primary" type="button" @onclick="NavigateToConfigPage"><span class="oi oi-cog" aria-hidden="true"></span> კონფიგურაცია</NavLink>
+    <NavLink class="btn btn-primary" type="button" @onclick="NavigateToProgramPage"><span class="oi oi-caret-right" aria-hidden="true"></span> პროგრამა</NavLink>
+    @*     <NavLink class="btn btn-primary" type="button" href="config"><span class="oi oi-cog" aria-hidden="true"></span> Configuration</NavLink>
+    <NavLink class="btn btn-primary" type="button" href="Program"><span class="oi oi-caret-right" aria-hidden="true"></span> Program</NavLink> *@
+</div>
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        StartTimer();
+    }
+
+    private void StartTimer()
+    {
+        Timer.SetTimer(3000);
+        Timer.OnElapsed += TimerElapsedHandler;
+        Console.WriteLine("Timer Started.");
+    }
+
+    private void TimerElapsedHandler()
+    {
+        Debug.WriteLine("Timer Elapsed! Navigating To Program Page");
+        //_ = JSRuntime.InvokeVoidAsync("console.log", "Timer Elapsed! Navigating To Program Page");
+        NavManager.NavigateTo("Program");
+    }
+
+    private void NavigateToConfigPage()
+    {
+        Timer.StopTimer();        
+        NavManager.NavigateTo("config");
+    }
+
+    private void NavigateToProgramPage()
+    {
+        Timer.StopTimer();        
+        NavManager.NavigateTo("Program");
+    }
+}

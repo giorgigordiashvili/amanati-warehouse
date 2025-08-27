@@ -1,0 +1,600 @@
+﻿@inject Services.IDialogService DialogService
+@inject Services.SettingsService SettingsService
+
+@inject NavigationManager NavManager
+
+@inject Services.NotificationTimer Timer
+@inject Services.IdleTimer IdleTimer
+@inject Services.OperatorIsActiveCheckTimer OperatorIsActiveCheckTimer
+
+
+@page "/program"
+@using Amanati.ge.Enums
+@using Amanati.ge.Models
+@using Microsoft.AspNetCore.Http.Connections
+@using Microsoft.AspNetCore.SignalR.Client;
+@using System.Diagnostics
+@using Newtonsoft.Json
+
+<div class="content" @ontouchstart="()=>InputCodeReleased()">
+
+    <div class="num-body" hidden="@LoadingPageState">
+        <div id="logo" class="logo">
+            <img src="Images/loading_t.svg" alt="Logo" class="loadingResponsiveLogo" id="loadingLogo">
+            @* <img src="Images/loading_t.svg" alt="Logo" class="responsiveLogo"> *@
+        </div>
+
+        <div id="error" class="error">
+            <div class="notoficationWarning">
+                გთხოვთ დაელოდოთ!
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="num-body" hidden="@MainPageState">
+        <div id="empty" class="empty">
+            @* <NavLink class="btn btn-primary" href="/">
+            <span aria-hidden="true"></span> დაბრუნება
+            </NavLink> *@
+        </div>
+        <div id="logo" class="logo">
+            <img src="Images/lg.png" alt="Logo" class="mainResponsiveLogo" hidden="@MainLogoState">
+            <img src="Images/loading_t.svg" alt="Logo" class="loadingResponsiveLogo" id="loadingLogo" hidden="@LoadingLogoState">
+            @* <img src="Images/loading_t.svg" alt="Logo" class="responsiveLogo"> *@
+        </div>
+        <div id="display" class="display">
+            <input type="text"
+                   name="codeInput"
+                   minlength="4"
+                   maxlength="8"
+                   required class="inputBackground"
+                   @bind="@InputCode"
+                   @ref="InputRef"
+                   @onkeypress="KeyboardEventHandler"
+                   @onfocusout="OnfocusOutHandler"
+                   id="codeInput"
+                   readonly>
+        </div>
+        <div id="error" class="error">
+            <div class="@InputeMessageStyle">
+                @InputMessage
+            </div>
+        </div>
+
+        <input type="button" class="action_button btn-one" value="1" @onclick="()=>InputCodechanged(1)" @ontouchstart:preventDefault @ontouchstart="()=>InputCodeTouched(1)" disabled="@ButtonsDisabled">
+        <input type="button" class="action_button btn-two" value="2" @onclick="()=>InputCodechanged(2)" @ontouchstart:preventDefault @ontouchstart="()=>InputCodeTouched(2)" disabled="@ButtonsDisabled">
+        <input type="button" class="action_button btn-three" value="3" @onclick="()=>InputCodechanged(3)" @ontouchstart:preventDefault @ontouchstart="()=>InputCodeTouched(3)" disabled="@ButtonsDisabled">
+        <input type="button" class="action_button btn-four" value="4" @onclick="()=>InputCodechanged(4)" @ontouchstart:preventDefault @ontouchstart="()=>InputCodeTouched(4)" disabled="@ButtonsDisabled">
+        <input type="button" class="action_button btn-five" value="5" @onclick="()=>InputCodechanged(5)" @ontouchstart:preventDefault @ontouchstart="()=>InputCodeTouched(5)" disabled="@ButtonsDisabled">
+        <input type="button" class="action_button btn-six" value="6" @onclick="()=>InputCodechanged(6)" @ontouchstart:preventDefault @ontouchstart="()=>InputCodeTouched(6)" disabled="@ButtonsDisabled">
+        <input type="button" class="action_button btn-seven" value="7" @onclick="()=>InputCodechanged(7)" @ontouchstart:preventDefault @ontouchstart="()=>InputCodeTouched(7)" disabled="@ButtonsDisabled">
+        <input type="button" class="action_button btn-eight" value="8" @onclick="()=>InputCodechanged(8)" @ontouchstart:preventDefault @ontouchstart="()=>InputCodeTouched(8)" disabled="@ButtonsDisabled">
+        <input type="button" class="action_action btn-nine" value="9" @onclick="()=>InputCodechanged(9)" @ontouchstart:preventDefault @ontouchstart="()=>InputCodeTouched(9)" disabled="@ButtonsDisabled">
+        <input type="button" class="action_button btn-clear" value="Del" @onclick="()=>InputCodechanged(-2)" @ontouchstart:preventDefault @ontouchstart="()=>InputCodeTouched(-2)">
+        <input type="button" class="action_button btn-zero" value="0" @onclick="()=>InputCodechanged(0)" @ontouchstart:preventDefault @ontouchstart="()=>InputCodeTouched(0)" disabled="@ButtonsDisabled">
+        <input type="button" class="action_button btn-clearOne" value="X" @onclick="()=>InputCodechanged(-1)" @ontouchstart:preventDefault @ontouchstart="()=>InputCodeTouched(-1)" disabled="@ButtonsDisabled">
+
+    </div>
+
+
+
+</div>
+
+@code {
+    private AppConfig LocalAppConfig = new AppConfig();
+    private HubConnection _connection;
+    private CancellationTokenSource _tokenSource;
+
+    private LanguageEnum Language = LanguageEnum.GE;
+    private ElementReference InputRef;
+
+    bool ButtonsDisabled = false;
+
+    bool IsIdleTimerEnabled = false;
+
+    private string InputCode = "______";
+    private string InputMessage = "შეიყვანეთ კოდი";
+
+    private string InputeMessageStyle = "notoficationClear";
+
+    private bool LoadingLogoState = true;
+    private bool MainLogoState = false;
+
+    private bool LoadingPageState = false;
+    private bool MainPageState = true;
+
+
+    public bool IsConnected => _connection?.State == HubConnectionState.Connected;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAppConfig();
+        await MauiConnection();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await InputRef.FocusAsync();
+    }
+
+
+    private async Task OnfocusOutHandler(FocusEventArgs args)
+    {
+        StateHasChanged();
+        await InputRef.FocusAsync();
+    }
+
+
+    #region Input Code
+
+    private async Task InputCodeReleased()
+    {
+        await InputRef.FocusAsync();
+    }
+
+    private async Task InputCodeTouched(int number)
+    {
+        // Handle touch events the same way as clicks
+        await InputCodechanged(number);
+    }
+
+    private async Task InputCodechanged(int number)
+    {
+        await StartIdleTimer();
+
+        InputCode = InputCode.Replace("_", string.Empty);
+        switch (number)
+        {
+            case -2:
+                //Debug Only
+                await ShowClearNotification();
+
+                break;
+            case -1:
+                if (InputCode.Length > 0)
+                    InputCode = InputCode.Remove(InputCode.Length - 1, 1);
+                // if (InputCode.Length < 1)
+                //     await ShowClearNotification();
+                break;
+
+            default:
+                if (InputCode.Length < 7)
+                    InputCode = InputCode + number.ToString();
+                break;
+        }
+
+        if (InputCode.Length == 7)
+        {
+            ButtonsDisabled = true;
+
+            await ShowNotification("გთხოვთ დაელოდოთ", 0, false);
+
+            await SendDataToServer(InputCode);
+
+            if (IdleTimer != null)
+                IdleTimer.StopTimer();
+        }
+        else
+        {
+            ButtonsDisabled = false;
+        }
+    }
+
+    private async Task KeyboardEventHandler(KeyboardEventArgs args)
+    {
+        await StartIdleTimer();
+
+        InputCode = InputCode.Replace("_", string.Empty);
+        Debug.WriteLine(args.Key);
+        if (args.Key != null)
+        {
+            switch (args.Key)
+            {
+                case "0":
+                    if (InputCode.Length < 7)
+                        InputCode = InputCode + "0";
+                    break;
+
+                case "1":
+                    if (InputCode.Length < 7)
+                        InputCode = InputCode + "1";
+                    break;
+
+                case "2":
+                    if (InputCode.Length < 7)
+                        InputCode = InputCode + "2";
+                    break;
+
+                case "3":
+                    if (InputCode.Length < 7)
+                        InputCode = InputCode + "3";
+                    break;
+
+                case "4":
+                    if (InputCode.Length < 7)
+                        InputCode = InputCode + "4";
+                    break;
+
+                case "5":
+                    if (InputCode.Length < 7)
+                        InputCode = InputCode + "5";
+                    break;
+
+                case "6":
+                    if (InputCode.Length < 7)
+                        InputCode = InputCode + "6";
+                    break;
+
+                case "7":
+                    if (InputCode.Length < 7)
+                        InputCode = InputCode + "7";
+                    break;
+
+                case "8":
+                    if (InputCode.Length < 7)
+                        InputCode = InputCode + "8";
+                    break;
+
+                case "9":
+                    if (InputCode.Length < 7)
+                        InputCode = InputCode + "9";
+                    break;
+
+
+                default:
+                    break;
+            }
+
+
+            if (InputCode.Length == 7)
+            {
+                ButtonsDisabled = true;
+
+                await SendDataToServer(InputCode);
+
+                if (IdleTimer != null)
+                    IdleTimer.StopTimer();
+            }
+            else
+            {
+                ButtonsDisabled = false;
+            }
+
+            await InputRef.FocusAsync();
+        }
+    }
+
+    #endregion
+
+    #region Client Notifications
+
+    private async Task ShowNotification(string message, int type, bool enableTimer, bool showLoadingLogo = false)
+    {
+        if (showLoadingLogo && type == 1)
+        {
+            MainLogoState = true;
+            LoadingLogoState = false;
+        }
+
+        await InvokeAsync(StateHasChanged);
+
+        InputMessage = message;
+        InputeMessageStyle = Enum.GetName(typeof(MessageStyleEnum), type);
+
+        await InvokeAsync(StateHasChanged);
+
+        if (type != 1 && enableTimer)
+            await StartTimer();
+    }
+
+
+    private async Task ShowClearNotification()
+    {
+        if (Timer != null)
+            Timer.StopTimer();
+
+        if (IdleTimer != null)
+            IdleTimer.StopTimer();
+
+        MainLogoState = false;
+        LoadingLogoState = true;
+
+        InputCode = "______";
+
+        InputMessage = "შეიყვანეთ კოდი";
+        InputeMessageStyle = Enum.GetName(typeof(MessageStyleEnum), 0);
+
+        ButtonsDisabled = false;
+
+        await InvokeAsync(StateHasChanged);
+
+        await InputRef.FocusAsync();
+    }
+
+    #region Timer
+
+    private async Task StartTimer()
+    {
+        Timer = new Services.NotificationTimer();
+        Timer.SetTimer(LocalAppConfig.ClientNotoficationTimeOut);
+        Timer.OnElapsed += TimerElapsedHandler;
+    }
+
+    private async void TimerElapsedHandler()
+    {
+        Debug.WriteLine("Timer Elapsed! Clear Notification");
+        await ShowClearNotification();
+    }
+
+
+    private async Task StartIdleTimer()
+    {
+        if (IsIdleTimerEnabled)
+            IdleTimer.StopTimer();
+        else
+            IdleTimer = new Services.IdleTimer();
+
+        IsIdleTimerEnabled = true;
+        IdleTimer.SetTimer(15000);
+        IdleTimer.OnElapsed += IdleTimerElapsedHandler;
+    }
+
+    private async void IdleTimerElapsedHandler()
+    {
+        Debug.WriteLine("Timer Elapsed! Clear Notification");
+        IsIdleTimerEnabled = false;
+        await ShowClearNotification();
+    }
+
+
+    private async Task StartOperatorIsActiveCheckTimer()
+    {
+        OperatorIsActiveCheckTimer = new Services.OperatorIsActiveCheckTimer();
+        OperatorIsActiveCheckTimer.SetTimer(3000);
+        OperatorIsActiveCheckTimer.OnElapsed += OperatorIsActiveCheckTimerElapsedHandler;
+    }
+
+    private async void OperatorIsActiveCheckTimerElapsedHandler()
+    {
+        Debug.WriteLine("OperatorIsActiveCheckTimer Elapsed!");
+        StartOperatorIsActiveCheckTimer();
+    }
+
+
+    #endregion
+
+
+
+
+
+    #endregion
+
+    #region SignalR Data Send/Receive
+
+    private async Task SendDataToServer(string code)
+    {
+
+        try
+        {
+            var serndModel = new SendDataModel()
+                {
+                    ClientID = LocalAppConfig.ClientID,
+                    Code = code,
+                    Language = Language
+                };
+            await _connection.InvokeAsync("SendDataToServerApp", serndModel);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            // await MauiConnection();
+        }
+    }
+
+
+    //Get Data From Server
+    private async Task DataReceived(ReciveDataModel model)
+    {
+        try
+        {
+            Debug.WriteLine("Message Received");
+            Debug.WriteLine(model.Message);
+
+            if (LocalAppConfig.ClientID == model.ClientID)
+                await ShowNotification($"{model.Message}", model.StatusID, true, true);
+        }
+        catch (Exception ex)
+        {
+            //await MauiConnection();
+        }
+    }
+
+
+    //Get Data From Server
+    private async Task ForceClearDataReceived(int clientID)
+    {
+        if (LocalAppConfig.ClientID == clientID)
+            await ShowClearNotification();
+    }
+
+
+    private async Task ServerStatusUpdateDataReceived(bool model)
+    {
+        Debug.WriteLine($"ServerStatusUpdateDataReceived : {model} ");
+
+        if (model)
+        {
+            LoadingPageState = true;
+            MainPageState = false;
+        }
+        else
+        {
+            LoadingPageState = false;
+            MainPageState = true;            
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+
+    #endregion
+
+    #region Config
+
+
+    private async Task LoadAppConfig()
+    {
+        var jsonConfig = await SettingsService.Get("Jsonconfig", "");
+        if (!string.IsNullOrEmpty(jsonConfig))
+        {
+            LocalAppConfig = JsonConvert.DeserializeObject<AppConfig>(jsonConfig);
+        }
+    }
+
+
+    #endregion
+
+
+
+    #region Maui Connection
+
+    public void Dispose() => _tokenSource.Cancel();
+
+
+    private async Task MauiConnection()
+    {
+        try
+        {
+            _tokenSource = new CancellationTokenSource();
+
+            var url = $"{LocalAppConfig.OperatorServerIP}communicationHub?access_token=AccessToken";
+
+            _connection = new HubConnectionBuilder()
+            .WithAutomaticReconnect(new RetryPolicyLoop())
+            .WithUrl(url, x =>
+                {
+                    x.AccessTokenProvider = () => Task.FromResult("AccessToken");
+                    x.Headers["CustomUserID"] = LocalAppConfig.ClientID.ToString();
+                    x.Headers["CustomUserType"] = "2";
+                    x.SkipNegotiation = true;
+                    x.Transports = HttpTransportType.WebSockets;
+                })
+                .Build();
+
+
+            _connection.Reconnecting += OnReconnecting;
+
+            _connection.Reconnected += OnReconnected;
+
+            _connection.Closed += OnConnectionClosed;
+
+            ConfigureConnection();
+
+            await StartConnection();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"MauiConnection Exception: {ex.Message} ");
+            await DialogService.ShowAlertAsync(" ", "სერვერი მიუწვდომელია!", "გასაგებია");
+            NavManager.NavigateTo("config");
+        }
+    }
+
+
+    //Configure Connection
+    private void ConfigureConnection()
+    {
+        try
+        {
+            _connection.On<ReciveDataModel>("ReceiveDataFromServerApp", DataReceived);
+
+            _connection.On<int>("FoceClearNotificationApp", ForceClearDataReceived);
+
+            _connection.On<bool>("ServerStatusUpdate", ServerStatusUpdateDataReceived);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Configure Connection Exception: {ex.Message} ");
+        }
+    }
+
+    //Start Connection
+    private async Task StartConnection()
+    {
+        try
+        {
+            await _connection.StartAsync();
+
+            if (_connection.State == Microsoft.AspNetCore.SignalR.Client.HubConnectionState.Connected)
+            {
+                LoadingPageState = true;
+                MainPageState = false;
+                await InvokeAsync(StateHasChanged);
+
+                await InputRef.FocusAsync();
+
+                //StartOperatorIsActiveCheckTimer();
+            }
+        }
+        catch (Exception ex)
+        {
+            await DialogService.ShowAlertAsync(" ", $"{ex.Message}", "გასაგებია");
+            //await DialogService.ShowAlertAsync(" ", "სერვერი მიუწვდომელია!", "გასაგებია");
+            NavManager.NavigateTo("config");
+            Debug.WriteLine($"Start Connection Exception: {ex.Message} ");
+        }
+    }
+
+
+    //OnReconecting
+    private async Task OnReconnecting(Exception args)
+    {
+        Debug.WriteLine("Reconnecting...");
+
+        LoadingPageState = false;
+        MainPageState = true;
+
+        await InputRef.FocusAsync();
+
+        await InvokeAsync(StateHasChanged);
+
+        await InputRef.FocusAsync();
+    }
+
+    //OnReconnected
+    private async Task OnReconnected(string connectionID)
+    {
+        Debug.WriteLine("OnReconnected...");
+
+        LoadingPageState = true;
+        MainPageState = false;
+
+        await InputRef.FocusAsync();
+
+        await InvokeAsync(StateHasChanged);
+
+        await InputRef.FocusAsync();
+    }
+
+    //OnConnectionClosed
+    private async Task OnConnectionClosed(Exception args)
+    {
+        Debug.WriteLine("Connection Closed...");
+    }
+
+    #endregion
+
+
+    public class RetryPolicyLoop : IRetryPolicy
+    {
+        private const int ReconnectionWaitSeconds = 5;
+
+        public TimeSpan? NextRetryDelay(RetryContext retryContext)
+        {
+            return TimeSpan.FromSeconds(ReconnectionWaitSeconds);
+        }
+    }
+}

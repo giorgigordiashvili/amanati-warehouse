@@ -1,0 +1,46 @@
+﻿@page "/counter"
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+
+
+
+<p hidden="@HideLabel" style="background-color:@bgcolor">I am Hidden When HideLabel == true</p>
+
+ <p hidden="@(!HideLabel)"></p>
+    
+ <button @onclick="@Toggle">Show/Hide</button>
+
+ @code {
+      private bool HideLabel { get; set; } = false;
+      private void Toggle()
+      {
+         HideLabel =   !HideLabel;
+      }      
+ } 
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
+
+<button style="background-color:@bgcolor" @onclick=SetColor>Click</button>
+
+@code
+{
+    string bgcolor { get; set; } = "00f"; // (starting value)
+
+    void SetColor()
+    {
+        bgcolor = "#fd7";
+       //StateHasChanged();  // may not be required, but I'm at work right now, so can't check
+    }
+}

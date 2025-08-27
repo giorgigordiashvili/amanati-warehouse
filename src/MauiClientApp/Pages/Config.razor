@@ -1,0 +1,78 @@
+﻿@inject Services.ConfigPageTimer Timer
+@inject Services.SettingsService SettingsService
+@inject Services.IDialogService DialogService
+
+@page "/config"
+
+@using Amanati.ge.Models
+@using Newtonsoft.Json
+@using System.Diagnostics
+
+<div class="d-grid gap-3">
+    <div class="mb-3">
+        @* <label for="OperatorServerIP" class="form-label">Server IP</label> *@
+        <input type="text" class="form-control" id="OperatorServerIP" placeholder="Server IP" @bind="@LocalAppConfig.OperatorServerIP">
+    </div>
+    <div class="mb-3">
+        @* <label for="ClientID" class="form-label">Client ID</label> *@
+        <input type="text" class="form-control" id="ClientID" placeholder="Client ID" @bind="@LocalAppConfig.ClientID">
+    </div>
+    <div class="mb-3">
+        @* <label for="ClientNotoficationTimeOut" class="form-label">ClientNotoficationTimeOut</label> *@
+        <input type="text" class="form-control" id="ClientNotoficationTimeOut" placeholder="ClientNotoficationTimeOut" @bind="@LocalAppConfig.ClientNotoficationTimeOut">
+    </div>
+
+    <button class="btn btn-primary" @onclick="SaveData">შენახვა</button>
+
+    <NavLink class="btn btn-primary" href="/">
+        @* <span class="oi oi-media-skip-backward" aria-hidden="true"></span>  *@
+        დაბრუნება
+    </NavLink>
+</div>
+
+
+
+@code {
+    public Config()
+    {
+
+    }
+    private AppConfig LocalAppConfig = new AppConfig();
+
+    protected override async void OnInitialized()
+    {
+        base.OnInitialized();
+        await LoadAppConfig();
+
+        //Device Info
+        //LocalAppConfig.UserName  = new GetDeviceInfo().GetDeviceID();
+    }
+
+    private async Task SaveData()
+    {
+        var jsonsting = JsonConvert.SerializeObject(LocalAppConfig);
+        await SettingsService.Save("Jsonconfig", jsonsting);
+        await DialogService.ShowAlertAsync(" ", "მონაცემები წარმატებით შეინახა", "გასაგებია");
+    }
+
+    private async Task LoadAppConfig()
+    {
+        var jsonConfig = await SettingsService.Get("Jsonconfig", "");
+        if (!string.IsNullOrEmpty(jsonConfig))
+        {
+            LocalAppConfig = JsonConvert.DeserializeObject<AppConfig>(jsonConfig);
+        }
+    }
+
+    // string KeyPressed = "";
+    // private void Keypress(KeyboardEventArgs args)
+    // {
+    //     Debug.WriteLine("test");
+    //     KeyPressed = "Key Pressed is " + args.Key;
+    //     var aa = LocalAppConfig.Password.Length;
+    //     DialogService.ShowDialogAsync("rame", $"Length: {aa}", "დიახ", "არა");
+    // }
+
+}
+
+

@@ -1,0 +1,548 @@
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+
+@{
+    ViewData["Title"] = "Home Page";
+
+    int workstationCount = 1;
+    Int32.TryParse(Configuration.GetSection("ParcelOptions")["WorkstationCount"], out workstationCount);
+
+    int gridConfig = 12;
+
+    gridConfig = workstationCount > 1 ? workstationCount > 2 ? 4 : 6 : 12;
+}
+
+<nav class="bg-white topbar mb-4 shadow text-center">
+    <div class="text-center h3 mb-0 text-gray-800" style="padding: 15px;">
+        <div class="editor-field focus">
+            <input type="text" id="Search" name="focus">
+        </div>
+    </div>
+    @*<h1 class="h3 mb-0 text-gray-800" style="padding-top: 15px;">მონიტორინგი</h1>*@
+</nav>
+
+<div class="row">
+
+    <!-- 1 Box -->
+    <div class="col-xl-@gridConfig col-md-@gridConfig mb-@gridConfig" style="min-height: 85vh" id="1">
+        <div class="card border-left-primary shadow h-100 py-2">
+
+            <div class="card-body ">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="h4 text-xl-center font-weight-bold text-uppercase mb-1 btn-block btn-danger" style="padding-bottom: 10px;" id="Workstatione1">ნომერი N 001</div>
+
+                        <div class="h5 text-center mb-0 font-weight-bold text-gray-900" style="padding-bottom: 10px;" id="Name1">-------------</div>
+                        <div class="h5 text-center mb-0 font-weight-bold text-gray-900" id="Name4">-------------</div>
+                        @*<input type="button" id="uncheckAll" onclick="uncheckAll('test')">*@
+                        <div class="row" id="Group1" style="margin: 15px;"></div>
+
+                        <button type="button" id="check1" class="btn btn-outline-primary btn-xs" onclick="uncheckAll('Contetnt1')"></button>
+                        <br />
+                        <div id="Contetnt1" class="overflow-auto" style="height: 55vh">
+                            @*<div class="h5 mb-0">112233445566778899</div>
+                            <div class="h5 mb-0 ">9988774515</div> *@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin: 15px;">
+                <div class="col-sm-4 d-grid">
+                    <button class="btn-block btn-success btn-lg" id="001">დასრულება</button>
+                </div>
+                <div class="col-sm-4 d-grid">
+                    <button class="btn-block btn-primary btn-lg" id="004">გაუქმება</button>
+                </div>
+                <div class="col-sm-4 d-grid">
+                    <button class="btn-block btn-danger btn-lg" id="007">Clear</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- 1 Box -->
+
+    @if (workstationCount > 1)
+    {
+        <!-- 2 Box -->
+        <div class="col-xl-@gridConfig col-md-@gridConfig mb-@gridConfig" style="min-height: 85vh" id="2">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="h4 text-xl-center font-weight-bold text-uppercase mb-1 btn-block btn-danger" style="padding-bottom: 10px;" id="Workstatione2">ნომერი N 002</div>                            
+                            <div class="h5 text-center mb-0 font-weight-bold text-gray-900" style="padding-bottom: 10px;" id="Name2">-------------</div>
+                            <div class="h5 text-center mb-0 font-weight-bold text-gray-900" id="Name5">-------------</div>
+                            <div class="row" id="Group2" style="margin: 15px;"></div>
+                            <button type="button" id="check2" class="btn btn-outline-primary btn-xs" onclick="uncheckAll('Contetnt2')"></button>
+                            <br />
+                            <div id="Contetnt2" class="overflow-auto" style="height: 55vh">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin: 15px;">
+                    <div class="col-sm-4 d-grid">
+                        <button class="btn-block btn-success btn-lg" id="002">დასრულება</button>
+                    </div>
+                    <div class="col-sm-4 d-grid">
+                        <button class="btn-block btn-primary btn-lg" id="005">გაუქმება</button>
+                    </div>
+                    <div class="col-sm-4 d-grid">
+                        <button class="btn-block btn-danger btn-lg" id="008">Clear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 2 Box -->
+    }
+
+    @if (workstationCount > 2)
+    {
+        <!-- 3 Box -->
+        <div class="col-xl-@gridConfig col-md-@gridConfig mb-@gridConfig" style="min-height: 85vh" id="3">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="h4 text-xl-center font-weight-bold text-uppercase mb-1 btn-block btn-danger" style="padding-bottom: 10px;" id="Workstatione3">ნომერი N 003</div>                            
+                            <div class="h5 text-center mb-0 font-weight-bold text-gray-900" style="padding-bottom: 10px;" id="Name3">-------------</div>
+                            <div class="h5 text-center mb-0 font-weight-bold text-gray-900" id="Name6">-------------</div>
+                            <div class="row" id="Group3" style="margin: 15px;"></div>
+                            <button type="button" id="check3" class="btn btn-outline-primary btn-xs" onclick="uncheckAll('Contetnt3')"></button>
+                            <br />
+                            <div id="Contetnt3" class="overflow-auto" style="height: 55vh">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin: 15px;">
+                    <div class="col-sm-4 d-grid">
+                        <button class="btn-block btn-success btn-lg" id="003">დასრულება</button>
+                    </div>
+                    <div class="col-sm-4 d-grid">
+                        <button class="btn-block btn-primary btn-lg" id="006">გაუქმება</button>
+                    </div>
+                    <div class="col-sm-4 d-grid">
+                        <button class="btn-block btn-danger btn-lg" id="009">Clear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 3 Box -->
+    }
+
+</div>
+
+
+
+@* ზურა ამას სანამ არ დავამატებ ვერ ხედავს ჯქუერის  *@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+
+
+
+@section scripts
+{
+
+}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        //$("#Search").focus().bind('blur', function () {
+        //    $(this).focus();
+        //});
+
+        $("html").click(function () {
+            $("#Search").val($("#Search").val()).focus();
+        });
+        //disable the tab key
+        $(document).keydown(function (objEvent) {
+            if (objEvent.keyCode == 9) {  //tab pressed
+                objEvent.preventDefault(); // stops its action
+            }
+        })
+
+    });
+
+
+    $('#Search').keypress(function (e) {
+        var key = e.which;
+        var audio = createAudio();
+        var errorAudio = createErrorAudio();
+
+        if (key == 13)  // the enter key code
+        {
+            //var value = $(this).val().toLowerCase().trim();
+            var value = $(this).val().trim();
+            console.log("value: " + value);
+
+
+            if (value.length === 0) {
+                console.log("Value Must Be Not empty!");
+            }
+            else {
+                var element = $("#" + value);
+
+                //console.log(element);
+
+                if (element.length) {
+                    //Found Sound
+                    //audio.play();
+                    $("#" + value).prop("checked", true);
+                }
+                else {
+                    errorAudio.play();
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: "არ მოიძებნა ამანათი!",
+                        showConfirmButton: true
+                        //timer: 2000
+                    });
+
+                }
+            }
+
+
+            $("#Search").val("");
+        }
+    });
+
+    var audio = createAudio();
+
+    var clientSMSCode1 = "1111111";
+    var clientSMSCode2 = "2222222";
+    var clientSMSCode3 = "3333333";
+
+
+    function uncheckAll(divid) {
+        if ($('#' + divid + ' :checked').length > 0) {
+            $('#' + divid + ' :checkbox:enabled').prop('checked', false);
+        } else {
+            $('#' + divid + ' :checkbox:enabled').prop('checked', true);
+        }
+    }
+
+    
+
+    function ClearParcelBox(workstationNumber) {
+
+        document.getElementById("Name" + workstationNumber).innerText = "-------------";
+        document.getElementById("Contetnt" + workstationNumber).innerHTML = '';
+        document.getElementById("Group" + workstationNumber).innerHTML = '';
+        document.getElementById("Name" + (workstationNumber + 3)).innerText = "-------------";
+    }
+
+
+    function createAudio() {
+        var obj = document.createElement("audio");
+        obj.src = "/Sound/plucky.mp3";
+        obj.volume = 1;
+        obj.autoPlay = false;
+        obj.preLoad = true;
+        obj.controls = true;
+        return obj;
+    }
+
+    function createErrorAudio() {
+        var obj = document.createElement("audio");
+        obj.src = "/Sound/Error.mp3";
+        obj.volume = 1;
+        obj.autoPlay = false;
+        obj.preLoad = true;
+        obj.controls = true;
+        return obj;
+    }
+
+
+    //***************** ამანათების გაცემა *****************//
+
+    $('#001').click(function () {
+
+        var checkedCheckboxValues = [];
+        $('#Contetnt1 input:checked').each(function () {
+            checkedCheckboxValues.push(this.value);
+        });
+
+        if (checkedCheckboxValues.length > 0) {
+            //გასუფთავება გასაკეთბელია წარმატებული შეტყობინების შემდეგ
+            //ClearParcelBox(1);
+            ApproveWithdraw(1, checkedCheckboxValues, clientSMSCode1);
+        }
+        else {
+            Swal.fire({
+                title: "მონიშნეთ ამანათები!",
+                icon: "error",
+                timer: 2000
+            });
+        }
+    });
+
+    $('#002').click(function () {
+
+        var checkedCheckboxValues = [];
+        $('#Contetnt2 input:checked').each(function () {
+            checkedCheckboxValues.push(this.value);
+        });
+
+        if (checkedCheckboxValues.length > 0) {
+            //გასუფთავება გასაკეთბელია წარმატებული შეტყობინების შემდეგ
+            //ClearParcelBox(2);
+            ApproveWithdraw(2, checkedCheckboxValues, clientSMSCode2);
+        }
+        else {
+            Swal.fire({
+                title: "მონიშნეთ ამანათები!",
+                icon: "error",
+                timer: 2000
+            });
+        }
+    });
+
+    $('#003').click(function () {
+
+        var checkedCheckboxValues = [];
+        $('#Contetnt3 input:checked').each(function () {
+            checkedCheckboxValues.push(this.value);
+        });
+
+        if (checkedCheckboxValues.length > 0) {
+            //გასუფთავება გასაკეთბელია წარმატებული შეტყობინების შემდეგ
+            //ClearParcelBox(3);
+            ApproveWithdraw(3, checkedCheckboxValues, clientSMSCode3);
+        }
+        else {
+            Swal.fire({
+                title: "მონიშნეთ ამანათები!",
+                icon: "error",
+                timer: 2000
+            });
+        }
+    });
+
+    //***************** ამანათების გაცემა *****************//
+
+
+
+    //***************** ამანათების გაცემის გაუქმება *****************//
+
+    $('#004').click(function () {
+        var checkedCheckboxValues = [];
+        $('#Contetnt1 input').each(function () {
+            checkedCheckboxValues.push(this.value);
+        });
+
+        if (checkedCheckboxValues.length == 0) {
+            Swal.fire({
+                title: "არ მოიძებნა ამანათები!",
+                icon: "error",
+                timer: 2000
+            });
+        }
+        else {
+            Swal.fire({
+                title: "გნებავთ ამანათების გაცემის გაუქმება?",
+                showDenyButton: true,
+                confirmButtonText: "დიახ",
+                denyButtonText: "არა",
+                customClass: {
+                    confirmButton: 'order-2',
+                    denyButton: 'order-1',
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    ClearParcelBox(1);
+                    DeclineWithdraw(1);
+                }
+            });
+        }
+    });
+
+    $('#005').click(function () {
+        var checkedCheckboxValues = [];
+        $('#Contetnt2 input').each(function () {
+            checkedCheckboxValues.push(this.value);
+        });
+
+        if (checkedCheckboxValues.length == 0) {
+            Swal.fire({
+                title: "არ მოიძებნა ამანათები!",
+                icon: "error",
+                timer: 2000
+            });
+        }
+        else {
+            Swal.fire({
+                title: "გნებავთ ამანათების გაცემის გაუქმება?",
+                showDenyButton: true,
+                confirmButtonText: "დიახ",
+                denyButtonText: "არა",
+                customClass: {
+                    confirmButton: 'order-2',
+                    denyButton: 'order-1',
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    ClearParcelBox(2);
+                    DeclineWithdraw(2);
+                }
+            });
+        }
+    });
+
+    $('#006').click(function () {
+        var checkedCheckboxValues = [];
+        $('#Contetnt3 input').each(function () {
+            checkedCheckboxValues.push(this.value);
+        });
+
+        if (checkedCheckboxValues.length == 0) {
+            Swal.fire({
+                title: "არ მოიძებნა ამანათები!",
+                icon: "error",
+                timer: 2000
+            });
+        }
+        else {
+            Swal.fire({
+                title: "გნებავთ ამანათების გაცემის გაუქმება?",
+                showDenyButton: true,
+                confirmButtonText: "დიახ",
+                denyButtonText: "არა",
+                customClass: {
+                    confirmButton: 'order-2',
+                    denyButton: 'order-1',
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    ClearParcelBox(3);
+                    DeclineWithdraw(3);
+                }
+            });
+        }
+    });
+
+    //***************** ამანათების გაცემის გაუქმება *****************//
+
+
+
+
+    //***************** კლიენტის მხარეს შეტყობინების გასუფთავება *****************//
+
+    $('#007').click(function () {
+        var checkedCheckboxValues = [];
+        $('#Contetnt1 input').each(function () {
+            checkedCheckboxValues.push(this.value);
+        });
+
+        if (checkedCheckboxValues.length > 0) {
+            Swal.fire({
+                title: "გთხოვთ დაასრულოთ ამანათების გაცემა!",
+                icon: "error",
+                timer: 2000
+            });
+        }
+        else {
+            Swal.fire({
+                title: "ნამდვილად გნებავთ კლიენტის მხარეს შეტყობინების გასუფთავება?",
+                showDenyButton: true,
+                confirmButtonText: "დიახ",
+                denyButtonText: "არა",
+                customClass: {
+                    confirmButton: 'order-2',
+                    denyButton: 'order-1',
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //Call ForceClearNotification
+                    FoceClearNotification(1);
+                    Swal.fire({
+                        title: "შეტყობინება გასუფთავებულია",
+                        icon: "info",
+                        timer: 1000
+                    });
+                }
+            });
+        }
+    });
+
+    $('#008').click(function () {
+        var checkedCheckboxValues = [];
+        $('#Contetnt2 input').each(function () {
+            checkedCheckboxValues.push(this.value);
+        });
+
+        if (checkedCheckboxValues.length > 0) {
+            Swal.fire({
+                title: "გთხოვთ დაასრულოთ ამანათების გაცემა!",
+                icon: "error",
+                timer: 2000
+            });
+        }
+        else {
+            Swal.fire({
+                title: "ნამდვილად გნებავთ კლიენტის მხარეს შეტყობინების გასუფთავება?",
+                showDenyButton: true,
+                confirmButtonText: "დიახ",
+                denyButtonText: "არა",
+                customClass: {
+                    confirmButton: 'order-2',
+                    denyButton: 'order-1',
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //Call ForceClearNotification
+                    FoceClearNotification(2);
+                    Swal.fire({
+                        title: "შეტყობინება გასუფთავებულია",
+                        icon: "info",
+                        timer: 1000
+                    });
+                }
+            });
+        }
+    });
+
+    $('#009').click(function () {
+        var checkedCheckboxValues = [];
+        $('#Contetnt3 input').each(function () {
+            checkedCheckboxValues.push(this.value);
+        });
+
+        if (checkedCheckboxValues.length > 0) {
+            Swal.fire({
+                title: "გთხოვთ დაასრულოთ ამანათების გაცემა!",
+                icon: "error",
+                timer: 2000
+            });
+        }
+        else {
+            Swal.fire({
+                title: "ნამდვილად გნებავთ კლიენტის მხარეს შეტყობინების გასუფთავება?",
+                showDenyButton: true,
+                confirmButtonText: "დიახ",
+                denyButtonText: "არა",
+                customClass: {
+                    confirmButton: 'order-2',
+                    denyButton: 'order-1',
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //Call ForceClearNotification
+                    FoceClearNotification(3);
+                    Swal.fire({
+                        title: "შეტყობინება გასუფთავებულია",
+                        icon: "info",
+                        timer: 1000
+                    });
+                }
+            });
+        }
+    });
+
+    //***************** კლიენტის მხარეს შეტყობინების გასუფთავება *****************//
+
+</script>

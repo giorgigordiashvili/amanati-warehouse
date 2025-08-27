@@ -1,0 +1,134 @@
+2025-08-21 00:01:22.087 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 00:01:22.092 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 00:01:22.173 +04:00 [INF] Received HTTP response headers after 80.2506ms - 200
+2025-08-21 00:01:22.173 +04:00 [INF] End processing HTTP request after 85.6795ms - 200
+2025-08-21 00:03:15.388 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 00:03:15.389 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 00:03:15.458 +04:00 [INF] Received HTTP response headers after 68.8775ms - 200
+2025-08-21 00:03:15.458 +04:00 [INF] End processing HTTP request after 70.0785ms - 200
+2025-08-21 00:03:19.369 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 00:03:19.369 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 00:03:19.446 +04:00 [INF] Received HTTP response headers after 77.0417ms - 200
+2025-08-21 00:03:19.446 +04:00 [INF] End processing HTTP request after 77.5207ms - 200
+2025-08-21 00:04:21.818 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 00:04:21.819 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 00:04:21.835 +04:00 [INF] Received HTTP response headers after 16.8561ms - 200
+2025-08-21 00:04:21.836 +04:00 [INF] End processing HTTP request after 18.1289ms - 200
+2025-08-21 00:04:28.402 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 00:04:28.402 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 00:04:28.417 +04:00 [INF] Received HTTP response headers after 15.1684ms - 200
+2025-08-21 00:04:28.417 +04:00 [INF] End processing HTTP request after 15.5438ms - 200
+2025-08-21 00:06:09.139 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 00:06:09.140 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 00:06:09.207 +04:00 [INF] Received HTTP response headers after 66.1793ms - 200
+2025-08-21 00:06:09.207 +04:00 [INF] End processing HTTP request after 67.3251ms - 200
+2025-08-21 00:06:26.550 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=5231029&branchID=20"
+2025-08-21 00:06:26.551 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=5231029&branchID=20"
+2025-08-21 00:06:26.570 +04:00 [INF] Received HTTP response headers after 18.6458ms - 200
+2025-08-21 00:06:26.570 +04:00 [INF] End processing HTTP request after 20.1637ms - 200
+2025-08-21 00:07:08.240 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 00:07:08.241 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 00:07:08.257 +04:00 [INF] Received HTTP response headers after 15.7135ms - 200
+2025-08-21 00:07:08.257 +04:00 [INF] End processing HTTP request after 17.3211ms - 200
+2025-08-21 00:13:47.344 +04:00 [INF] Token Outdated, Refreshing...
+2025-08-21 00:13:47.346 +04:00 [INF] Start processing HTTP request POST "https://api.tao.ge/token"
+2025-08-21 00:13:47.347 +04:00 [INF] Sending HTTP request POST "https://api.tao.ge/token"
+2025-08-21 00:13:47.481 +04:00 [INF] Received HTTP response headers after 134.3522ms - 200
+2025-08-21 00:13:47.481 +04:00 [INF] End processing HTTP request after 134.6862ms - 200
+2025-08-21 00:13:47.482 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 00:13:47.482 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 00:13:47.506 +04:00 [INF] Received HTTP response headers after 24.1305ms - 200
+2025-08-21 00:13:47.506 +04:00 [INF] End processing HTTP request after 24.4442ms - 200
+2025-08-21 00:15:42.521 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 00:15:42.521 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 00:15:42.598 +04:00 [INF] Received HTTP response headers after 76.6288ms - 200
+2025-08-21 00:15:42.598 +04:00 [INF] End processing HTTP request after 77.442ms - 200
+2025-08-21 00:17:14.454 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=2758645&branchID=20"
+2025-08-21 00:17:14.455 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=2758645&branchID=20"
+2025-08-21 00:17:14.610 +04:00 [INF] Received HTTP response headers after 154.127ms - 200
+2025-08-21 00:17:14.610 +04:00 [INF] End processing HTTP request after 155.7936ms - 200
+2025-08-21 00:17:21.428 +04:00 [INF] Start processing HTTP request POST "https://api.tao.ge/item/IssueParcels"
+2025-08-21 00:17:21.428 +04:00 [INF] Sending HTTP request POST "https://api.tao.ge/item/IssueParcels"
+2025-08-21 00:17:21.471 +04:00 [INF] Received HTTP response headers after 42.3864ms - 200
+2025-08-21 00:17:21.471 +04:00 [INF] End processing HTTP request after 42.9078ms - 200
+2025-08-21 00:18:33.423 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=5231029&branchID=20"
+2025-08-21 00:18:33.424 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=5231029&branchID=20"
+2025-08-21 00:18:33.497 +04:00 [INF] Received HTTP response headers after 72.9437ms - 200
+2025-08-21 00:18:33.497 +04:00 [INF] End processing HTTP request after 74.441ms - 200
+2025-08-21 00:20:53.569 +04:00 [ERR] Error when dispatching 'OnDisconnectedAsync' on hub.
+System.InvalidOperationException: Collection was modified; enumeration operation may not execute.
+   at System.Collections.Generic.List`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at ServerSide.Hubs.CommunicationHub.OnDisconnectedAsync(Exception exception) in /Users/giorgigordiashvili/Support/AmanatiLTD/amanatiwarehouse/src/ServerSide/Hubs/CommunicationHub.cs:line 377
+   at Microsoft.AspNetCore.SignalR.Internal.DefaultHubDispatcher`1.OnDisconnectedAsync(HubConnectionContext connection, Exception exception)
+   at Microsoft.AspNetCore.SignalR.Internal.DefaultHubDispatcher`1.OnDisconnectedAsync(HubConnectionContext connection, Exception exception)
+   at Microsoft.AspNetCore.SignalR.HubConnectionHandler`1.HubOnDisconnectedAsync(HubConnectionContext connection, Exception exception)
+2025-08-21 00:20:53.591 +04:00 [ERR] Failed disposing connection AzXnG3dUQ5wn2vCNS7F00w.
+System.InvalidOperationException: Collection was modified; enumeration operation may not execute.
+   at System.Collections.Generic.List`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at ServerSide.Hubs.CommunicationHub.OnDisconnectedAsync(Exception exception) in /Users/giorgigordiashvili/Support/AmanatiLTD/amanatiwarehouse/src/ServerSide/Hubs/CommunicationHub.cs:line 377
+   at Microsoft.AspNetCore.SignalR.Internal.DefaultHubDispatcher`1.OnDisconnectedAsync(HubConnectionContext connection, Exception exception)
+   at Microsoft.AspNetCore.SignalR.Internal.DefaultHubDispatcher`1.OnDisconnectedAsync(HubConnectionContext connection, Exception exception)
+   at Microsoft.AspNetCore.SignalR.HubConnectionHandler`1.HubOnDisconnectedAsync(HubConnectionContext connection, Exception exception)
+   at Microsoft.AspNetCore.SignalR.HubConnectionHandler`1.RunHubAsync(HubConnectionContext connection)
+   at Microsoft.AspNetCore.SignalR.HubConnectionHandler`1.OnConnectedAsync(ConnectionContext connection)
+   at Microsoft.AspNetCore.SignalR.HubConnectionHandler`1.OnConnectedAsync(ConnectionContext connection)
+   at Microsoft.AspNetCore.Http.Connections.Internal.HttpConnectionContext.ExecuteApplication(ConnectionDelegate connectionDelegate)
+   at Microsoft.AspNetCore.Http.Connections.Internal.HttpConnectionContext.WaitOnTasks(Task applicationTask, Task transportTask, Boolean closeGracefully)
+   at Microsoft.AspNetCore.Http.Connections.Internal.HttpConnectionContext.DisposeAsync(Boolean closeGracefully)
+   at Microsoft.AspNetCore.Http.Connections.Internal.HttpConnectionManager.DisposeAndRemoveAsync(HttpConnectionContext connection, Boolean closeGracefully)
+2025-08-21 00:21:35.487 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=5231029&branchID=20"
+2025-08-21 00:21:35.488 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=5231029&branchID=20"
+2025-08-21 00:21:35.551 +04:00 [INF] Received HTTP response headers after 62.724ms - 200
+2025-08-21 00:21:35.551 +04:00 [INF] End processing HTTP request after 64.5006ms - 200
+2025-08-21 01:06:28.263 +04:00 [INF] Start processing HTTP request POST "https://api.tao.ge/token"
+2025-08-21 01:06:28.294 +04:00 [INF] Sending HTTP request POST "https://api.tao.ge/token"
+2025-08-21 01:06:28.864 +04:00 [INF] Received HTTP response headers after 567.4373ms - 200
+2025-08-21 01:06:28.865 +04:00 [INF] End processing HTTP request after 607.129ms - 200
+2025-08-21 01:06:28.940 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 01:06:28.940 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 01:06:28.956 +04:00 [INF] Received HTTP response headers after 16.1728ms - 200
+2025-08-21 01:06:28.956 +04:00 [INF] End processing HTTP request after 16.8946ms - 200
+2025-08-21 01:06:40.220 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 01:06:40.220 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 01:06:40.237 +04:00 [INF] Received HTTP response headers after 16.804ms - 200
+2025-08-21 01:06:40.238 +04:00 [INF] End processing HTTP request after 17.9659ms - 200
+2025-08-21 01:06:58.708 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 01:06:58.709 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=20"
+2025-08-21 01:06:58.724 +04:00 [INF] Received HTTP response headers after 14.4332ms - 200
+2025-08-21 01:06:58.724 +04:00 [INF] End processing HTTP request after 15.7327ms - 200
+2025-08-21 01:07:39.040 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=2758645&branchID=20"
+2025-08-21 01:07:39.041 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=2758645&branchID=20"
+2025-08-21 01:07:39.135 +04:00 [INF] Received HTTP response headers after 93.114ms - 200
+2025-08-21 01:07:39.135 +04:00 [INF] End processing HTTP request after 95.4972ms - 200
+2025-08-21 01:09:10.346 +04:00 [INF] Start processing HTTP request POST "https://api.tao.ge/token"
+2025-08-21 01:09:10.376 +04:00 [INF] Sending HTTP request POST "https://api.tao.ge/token"
+2025-08-21 01:09:10.469 +04:00 [INF] Received HTTP response headers after 91.1946ms - 200
+2025-08-21 01:09:10.470 +04:00 [INF] End processing HTTP request after 129.9986ms - 200
+2025-08-21 01:09:10.540 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=5231029&branchID=20"
+2025-08-21 01:09:10.540 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=5231029&branchID=20"
+2025-08-21 01:09:10.556 +04:00 [INF] Received HTTP response headers after 15.7192ms - 200
+2025-08-21 01:09:10.556 +04:00 [INF] End processing HTTP request after 16.1302ms - 200
+2025-08-21 01:11:30.639 +04:00 [INF] Start processing HTTP request POST "https://api.tao.ge/token"
+2025-08-21 01:11:30.669 +04:00 [INF] Sending HTTP request POST "https://api.tao.ge/token"
+2025-08-21 01:11:30.787 +04:00 [INF] Received HTTP response headers after 114.9845ms - 200
+2025-08-21 01:11:30.787 +04:00 [INF] End processing HTTP request after 153.0185ms - 200
+2025-08-21 01:11:30.861 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=10"
+2025-08-21 01:11:30.861 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=1111111&branchID=10"
+2025-08-21 01:11:30.877 +04:00 [INF] Received HTTP response headers after 15.9387ms - 200
+2025-08-21 01:11:30.877 +04:00 [INF] End processing HTTP request after 16.3272ms - 200
+2025-08-21 01:11:40.802 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=5231029&branchID=10"
+2025-08-21 01:11:40.802 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=5231029&branchID=10"
+2025-08-21 01:11:41.009 +04:00 [INF] Received HTTP response headers after 205.9291ms - 200
+2025-08-21 01:11:41.010 +04:00 [INF] End processing HTTP request after 207.9562ms - 200
+2025-08-21 01:12:05.472 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=5231029&branchID=10"
+2025-08-21 01:12:05.472 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=5231029&branchID=10"
+2025-08-21 01:12:05.675 +04:00 [INF] Received HTTP response headers after 201.8662ms - 200
+2025-08-21 01:12:05.675 +04:00 [INF] End processing HTTP request after 202.9343ms - 200
+2025-08-21 01:19:19.673 +04:00 [INF] Start processing HTTP request GET "https://api.tao.ge/code?code=5231029&branchID=10"
+2025-08-21 01:19:19.675 +04:00 [INF] Sending HTTP request GET "https://api.tao.ge/code?code=5231029&branchID=10"
+2025-08-21 01:19:19.944 +04:00 [INF] Received HTTP response headers after 268.7263ms - 200
+2025-08-21 01:19:19.944 +04:00 [INF] End processing HTTP request after 271.7581ms - 200

@@ -1,0 +1,90 @@
+﻿@page "/fetchdata"
+
+@using Amanati.ge.Data
+@using Microsoft.AspNetCore.SignalR.Client;
+@using System.Diagnostics
+
+@inject WeatherForecastService ForecastService
+
+
+<div id="error" class="error">
+    <div>
+         @Message
+    </div>
+</div>
+
+@* <h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.TemperatureC</td>
+                    <td>@forecast.TemperatureF</td>
+                    <td>@forecast.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+} *@
+
+@code {
+    private WeatherForecast[] forecasts;
+
+    private string Message = "";
+
+
+    private HubConnection _connection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        //forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+
+
+        try
+        {
+            _connection = new HubConnectionBuilder()
+                .WithUrl($"https://localhost:1133/communicationHub")
+                .Build();
+
+
+            _connection.On<string, string>("ReceiveMessage", MessageReceived);
+
+            await _connection.StartAsync();
+        }
+        catch (Exception ex)
+        {
+
+            throw;
+        }
+    }
+
+    private void MessageReceived(string user, string message)
+    {
+        Debug.WriteLine("Message Received");
+        Message = message;
+        Debug.WriteLine(message);
+        Debug.WriteLine(user);
+
+
+    }
+}
